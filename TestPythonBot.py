@@ -1,29 +1,43 @@
 ﻿# TestPythonBot
 # Copyright (C) 2019 Rax Ixor (raxixor@gmail.com)
 # Full license in '<base directory>/LICENSE'
-
-from config import CREDENTIALS
+from config import CREDENTIALS, CONFIGURATION
 import util
 import discord
+from discord.ext import commands
+import asyncio
+import os
+import re
+import logging
 
-class TestPythonBot(discord.Client):
-    async def on_ready(self):
-        print(f'Logged on as: {self.user}')
+logging.basicConfig(level=logging.INFO)
 
-    async def on_message(self, message):
-        if message.author == self.user:
-            return
-        
-        if util.check_kill_command(message.content) and util.is_owner(message.author.id):
-            await message.delete()
-            await self.logout()
-            if not self.is_closed():
-                await self.close()
-            print("Exited")
-            return
+LOG = util.setup_logger( "Main" )
+print( LOG )
 
-        # TODO: Command Handler
-            
+EXTENSIONS = [ ]
 
-client = TestPythonBot()
-client.run(CREDENTIALS["Token"])
+def load_listeners(bot: commands.Bot):
+    LOG.info( "Loading Listeners..." )
+    FILES = []
+
+    for root, dirs, files in os.walk("listeners/"):
+        for file in files:
+            if file.endswith(".py"):
+                FILES.append(file.rstrip(".py"))
+            pass
+        pass
+
+    for x in FILES:
+        LOG.info("Loading {}".format(x))
+        bot.load_extension("listeners.{}".format(x))
+    
+    return
+
+LOG.info( "Starting to load." )
+
+bot = commands.Bot( command_prefix=CONFIGURATION["Prefix"] )
+
+load_listeners( bot )
+
+bot.run( CREDENTIALS["Token"] )
