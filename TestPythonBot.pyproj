@@ -22,7 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="config.py" />
     <Compile Include="TestPythonBot.py" />
+    <Compile Include="util.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
