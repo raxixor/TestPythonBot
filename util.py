@@ -1,4 +1,8 @@
-﻿from config import CONFIGURATION
+﻿# TestPythonBot
+# Copyright (C) 2019 Rax Ixor (raxixor@gmail.com)
+# Full license in '<base directory>/LICENSE'
+
+from config import CONFIGURATION
 
 def check_prefix(string: str):
     return string.startswith(CONFIGURATION["Prefix"])

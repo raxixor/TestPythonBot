@@ -28,6 +28,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="LICENSE" />
+    <Content Include="README" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,8 @@
-﻿from config import CREDENTIALS
+﻿# TestPythonBot
+# Copyright (C) 2019 Rax Ixor (raxixor@gmail.com)
+# Full license in '<base directory>/LICENSE'
+
+from config import CREDENTIALS
 import util
 import discord
 
