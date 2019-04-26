@@ -4,7 +4,7 @@ from discord.ext import commands
 
 LOG = util.setup_logger( "Main" )
 
-class BasicsCog( commands.Cog ):
+class BasicsCog( commands.Cog, name="Basic Commands" ):
     """Basics Cog"""
     def __init__(self, bot):
         self.bot = bot
