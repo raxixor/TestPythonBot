@@ -10,7 +10,7 @@ import logging
 import discord
 import sys
 import traceback
-import util
+import lib.util as util
 
 # Uncomment next line to enable logging of discord.py messages
 # logging.basicConfig( level=logging.INFO )

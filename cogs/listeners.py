@@ -1,5 +1,5 @@
 ﻿import discord
-import util
+import lib.util as util
 from discord.ext import commands
 
 LOG = util.setup_logger("Main")

@@ -29,11 +29,13 @@
     <Compile Include="cogs\listeners.py" />
     <Compile Include="cogs\owner.py" />
     <Compile Include="config.py" />
+    <Compile Include="lib\checks.py" />
     <Compile Include="TestPythonBot.py" />
-    <Compile Include="util.py" />
+    <Compile Include="lib\util.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="CONTRIBUTING.md" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
@@ -51,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cogs\" />
+    <Folder Include="lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
