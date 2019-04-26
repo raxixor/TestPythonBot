@@ -16,21 +16,44 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
         """Loads a module.
         Remember to use dot path, example: 'cogs.owner'"""
         try:
-            self.bot.load_extension(cog)
+            self.bot.load_extension( cog )
         except Exception as e:
-            await ctx.send(f"An error occurred. ```{type(e).__name__} - {e}```")
+            await ctx.send( f"An error occurred. ```{type(e).__name__}\n{e}```" )
         else:
-            await ctx.send(f'Successfully loaded "{cog}"')
+            await ctx.send( f'Successfully loaded `{cog}`' )
         pass
 
-    @commands.command(name="unload")
-    @checks.is_owner()
+    @commands.command( name="unload" )
+    @checks.is_owner( )
     async def cog_unload(self, ctx, *, cog: str):
         """Unloads a module.
         Remember to use dot path, example: 'cogs.owner'"""
 
-        if util.cog_unloadable(cog):
+        if not util.cog_unloadable( cog ):
+            await ctx.send( f"You cannot unload `{cog}`." )
+            return
+        try:
+            self.bot.unload_extension( cog )
+        except Exception as e:
+            await ctx.send( f"An error occurred. ```{type(e).__name__}\n{e}```" )
+        else:
+            await ctx.send( f"Successfully unloaded `{cog}`." )
+        pass
 
+    @commands.command( name="reload" )
+    @checks.is_owner( )
+    async def cog_reload(self, ctx, *, cog: str):
+        """Reloads a module.
+        Remember to use dot path, example: 'cogs.owner'"""
+
+        try:
+            self.bot.unload_extension( cog )
+            self.bot.load_extension( cog )
+        except Exception as e:
+            await ctx.send( f"An error occurred. ```{type(e).__name__}\n{e}```" )
+        else:
+            await ctx.send( f"Successfully reloaded `{cog}`." )
+        pass
 
     pass
 
