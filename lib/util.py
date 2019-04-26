@@ -19,15 +19,18 @@ def get_prefix(bot: commands.Bot, message: discord.Message):
 def is_owner(id: int) -> bool:
     """Checks if an ID is in the list of owners.
     
-    @param id: ID of the user to check
-    @return: True if the user is in the list of owners."""
+    :param id int: ID of the user to check
+    :return: True if the user is in the list of owners.
+    :rtype: bool
+    """
     return id in CONFIGURATION["Owner"]
 
 def setup_logger(name: str) -> logging.Logger:
     """Sets up a logger.
     
-    @param name: Name for the logger
-    @return: a Logger set up properly.
+    :param name str: Name for the logger
+    :return: a Logger set up properly.
+    :rtype: logging.Logger
     """
     logger = logging.getLogger( name )
 
@@ -45,6 +48,8 @@ def setup_logger(name: str) -> logging.Logger:
 def cog_unloadable(cog: str) -> bool:
     """Checks if a cog is able to be unloaded.
     
-    @param name: Name of the cog.
-    @return: True if the cog can be unloaded."""
+    :param name str: Name of the cog.
+    :return: True if the cog can be unloaded.
+    :rtype: bool
+    """
     return cog not in CONFIGURATION["NoUnload"]

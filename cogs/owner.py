@@ -29,7 +29,8 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
         """Unloads a module.
         Remember to use dot path, example: 'cogs.owner'"""
 
-        if cog == "cogs.owner":
+        if util.cog_unloadable(cog):
+
 
     pass
 
