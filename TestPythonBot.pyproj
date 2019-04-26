@@ -25,15 +25,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cogs\basic.py" />
+    <Compile Include="cogs\listeners.py" />
+    <Compile Include="cogs\owner.py" />
     <Compile Include="config.py" />
-    <Compile Include="listeners\killcommand.py" />
     <Compile Include="TestPythonBot.py" />
     <Compile Include="util.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="LICENSE" />
-    <Content Include="listeners\readylistener.py" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
@@ -49,7 +50,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="listeners\" />
+    <Folder Include="cogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

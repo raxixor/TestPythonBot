@@ -2,42 +2,35 @@
 # Copyright (C) 2019 Rax Ixor (raxixor@gmail.com)
 # Full license in '<base directory>/LICENSE'
 from config import CREDENTIALS, CONFIGURATION
-import util
-import discord
 from discord.ext import commands
 import asyncio
 import os
 import re
 import logging
+import discord
+import sys
+import traceback
+import util
 
-logging.basicConfig(level=logging.INFO)
-
+# Uncomment next line to enable logging of discord.py messages
+# logging.basicConfig( level=logging.INFO )
 LOG = util.setup_logger( "Main" )
-print( LOG )
-
-EXTENSIONS = [ ]
-
-def load_listeners(bot: commands.Bot):
-    LOG.info( "Loading Listeners..." )
-    FILES = []
-
-    for root, dirs, files in os.walk("listeners/"):
-        for file in files:
-            if file.endswith(".py"):
-                FILES.append(file.rstrip(".py"))
-            pass
-        pass
-
-    for x in FILES:
-        LOG.info("Loading {}".format(x))
-        bot.load_extension("listeners.{}".format(x))
-    
-    return
 
 LOG.info( "Starting to load." )
 
-bot = commands.Bot( command_prefix=CONFIGURATION["Prefix"] )
+bot = commands.Bot( command_prefix=util.get_prefix, description="A Python Test Bot." )
 
-load_listeners( bot )
+if __name__ == '__main__':
+    for extension in CONFIGURATION["InitialExtensions"]:
+        bot.load_extension( extension )
+        pass
+    pass
 
-bot.run( CREDENTIALS["Token"] )
+@bot.event
+async def on_ready( ):
+    LOG.info( f"\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n" )
+    await bot.change_presence( activity=discord.Game( name="TestPythonBot", type=1, url="https://rax.ee" ) )
+    LOG.info( "Successfully logged in and booted." )
+    pass
+
+bot.run( CREDENTIALS["Token"], bot=True, reconnect=True )
