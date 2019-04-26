@@ -4,12 +4,8 @@
 from config import CREDENTIALS, CONFIGURATION
 from discord.ext import commands
 import asyncio
-import os
-import re
 import logging
 import discord
-import sys
-import traceback
 import lib.util as util
 
 # Uncomment next line to enable logging of discord.py messages
@@ -22,13 +18,17 @@ bot = commands.Bot( command_prefix=util.get_prefix, description="A Python Test B
 
 if __name__ == '__main__':
     for extension in CONFIGURATION["InitialExtensions"]:
-        bot.load_extension( extension )
+        try:
+            bot.load_extension( extension )
+        except Exception:
+            LOG.error( f"Failed to load extension '{extension}'.", exc_info=True )
+            continue
         pass
     pass
 
 @bot.event
 async def on_ready( ):
-    LOG.info( f"\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n" )
+    LOG.info( f"\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\nOwners: {}" )
     await bot.change_presence( activity=discord.Game( name="TestPythonBot", type=1, url="https://rax.ee" ) )
     LOG.info( "Successfully logged in and booted." )
     pass

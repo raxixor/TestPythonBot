@@ -10,13 +10,18 @@ class BasicsCog( commands.Cog ):
         self.bot = bot
         pass
 
-    @commands.command(name="ping", aliases=["pong"])
-    async def ping(self, ctx: commands.Context):
-        """A simple test command to check if the bot is actually running."""
+    @commands.command( name="repeat", aliases=[ "copy", "mimic", "echo" ] )
+    async def do_repeat(self, ctx, *, input: str):
+        """Simply echoes what's said."""
 
-        await ctx.send("Pong!")
+        await ctx.send( input )
         pass
 
+    @commands.command( name="about" )
+    async def do_about(self, ctx):
+        """An about embed."""
+
+        pass
     pass
 
 def setup(bot):

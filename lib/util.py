@@ -14,7 +14,7 @@ def get_prefix(bot: commands.Bot, message: discord.Message):
     if not message.guild:
         return [x for x in prefixes if x["DirectOnly"]]
 
-    return commands.when_mentioned_or(*[x for x in prefixes if not x["DirectOnly"]])(bot, message)
+    return commands.when_mentioned_or( *[x for x in prefixes if not x["DirectOnly"]] )( bot, message )
 
 def is_owner(id: int) -> bool:
     """Checks if an ID is in the list of owners.
@@ -23,7 +23,7 @@ def is_owner(id: int) -> bool:
     :return: True if the user is in the list of owners.
     :rtype: bool
     """
-    return id in CONFIGURATION["Owner"]
+    return id in CONFIGURATION["Owners"]
 
 def setup_logger(name: str) -> logging.Logger:
     """Sets up a logger.
@@ -53,3 +53,6 @@ def cog_unloadable(cog: str) -> bool:
     :rtype: bool
     """
     return cog not in CONFIGURATION["NoUnload"]
+
+def get_owners( ) -> [ str ]:
+    return CONFIGURATION["Owners"]
