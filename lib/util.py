@@ -14,7 +14,7 @@ def get_prefix(bot: commands.Bot, message: discord.Message):
     if not message.guild:
         return [x["Prefix"] for x in prefixes if x["DirectOnly"]]
 
-    return commands.when_mentioned_or( *[x for x in prefixes if not x["DirectOnly"]] )( bot, message )
+    return commands.when_mentioned_or( *[x["Prefix"] for x in prefixes if not x["DirectOnly"]] )( bot, message )
 
 def is_owner(id: int) -> bool:
     """Checks if an ID is in the list of owners.

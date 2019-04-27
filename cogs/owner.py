@@ -1,6 +1,7 @@
 ﻿import discord
 from lib import checks, util
 from discord.ext import commands
+from config import IDENTITY
 
 LOG = util.setup_logger( "Main" )
 
@@ -18,14 +19,23 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
             pass
         pass
 
-    @group_cog.command(name="help")
+    @group_cog.command( name="help" )
     @checks.is_owner( )
-    async def help_cog(self, ctx, *, command: str):
-        embed = discord.Embed(title="Cog Management Commands",
+    async def help_cog(self, ctx):
+        user = self.bot.user
+        embed = discord.Embed( title="Cog Management Commands",
                               description="Commands for managing Cogs.",
-                              colour=0x00FF00)
+                              color=0x00FF00 )
 
-        embed.set_author(name = )
+        avatar = user.avatar_url
+
+        embed.set_author( name = IDENTITY["Name"], url=IDENTITY["Repo"], icon_url=avatar )
+
+        embed.add_field( name="cog load", value="Loads a cog.\nUsage: `cog load <cog name>`\nExample: `cog load cogs.basic`" )
+        embed.add_field( name="cog unload", value="Unloads a cog.\nUsage: `cog unload <cog name>`\nExample: `cog unload cogs.basic`" )
+        embed.add_field( name="cog reload", value="Reloads a cog.\nUsage: `cog reload <cog name>`\nExample: `cog reload cogs.basic`" )
+
+        await ctx.send( embed=embed )
         pass
 
     @group_cog.command( name="load" )
