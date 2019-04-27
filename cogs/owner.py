@@ -10,9 +10,27 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
         self.bot = bot
         pass
 
-    @commands.command( name="load" )
+    @commands.group( name="cog", pass_context=True, hidden=True )
     @checks.is_owner( )
-    async def cog_load(self, ctx, *, cog: str):
+    async def group_cog(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send( "Invalid sub command passed.\nFor more info, do `cog help`" )
+            pass
+        pass
+
+    @group_cog.command(name="help")
+    @checks.is_owner( )
+    async def help_cog(self, ctx, *, command: str):
+        embed = discord.Embed(title="Cog Management Commands",
+                              description="Commands for managing Cogs.",
+                              colour=0x00FF00)
+
+        embed.set_author(name = )
+        pass
+
+    @group_cog.command( name="load" )
+    @checks.is_owner( )
+    async def load_cog(self, ctx, *, cog: str):
         """Loads a module.
         Remember to use dot path, example: 'cogs.owner'"""
         try:
@@ -23,9 +41,9 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
             await ctx.send( f'Successfully loaded `{cog}`' )
         pass
 
-    @commands.command( name="unload" )
+    @group_cog.command( name="unload" )
     @checks.is_owner( )
-    async def cog_unload(self, ctx, *, cog: str):
+    async def unload_cog(self, ctx, *, cog: str):
         """Unloads a module.
         Remember to use dot path, example: 'cogs.owner'"""
 
@@ -40,9 +58,9 @@ class OwnerCog( commands.Cog, name="Owner Commands", command_attrs=dict( hidden=
             await ctx.send( f"Successfully unloaded `{cog}`." )
         pass
 
-    @commands.command( name="reload" )
+    @group_cog.command( name="reload" )
     @checks.is_owner( )
-    async def cog_reload(self, ctx, *, cog: str):
+    async def reload_cog(self, ctx, *, cog: str):
         """Reloads a module.
         Remember to use dot path, example: 'cogs.owner'"""
 

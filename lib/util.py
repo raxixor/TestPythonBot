@@ -12,7 +12,7 @@ def get_prefix(bot: commands.Bot, message: discord.Message):
     prefixes = CONFIGURATION["Prefixes"]
 
     if not message.guild:
-        return [x for x in prefixes if x["DirectOnly"]]
+        return [x["Prefix"] for x in prefixes if x["DirectOnly"]]
 
     return commands.when_mentioned_or( *[x for x in prefixes if not x["DirectOnly"]] )( bot, message )
 

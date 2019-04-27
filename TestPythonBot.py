@@ -1,7 +1,7 @@
 ﻿# TestPythonBot
 # Copyright (C) 2019 Rax Ixor (raxixor@gmail.com)
 # Full license in '<base directory>/LICENSE'
-from config import CREDENTIALS, CONFIGURATION
+from config import CREDENTIALS, CONFIGURATION, IDENTITY
 from discord.ext import commands
 import asyncio
 import logging
@@ -14,7 +14,7 @@ LOG = util.setup_logger( "Main" )
 
 LOG.info( "Starting to load." )
 
-bot = commands.Bot( command_prefix=util.get_prefix, description="A Python Test Bot." )
+bot = commands.Bot( command_prefix=util.get_prefix, description=IDENTITY["Description"] )
 
 if __name__ == '__main__':
     for extension in CONFIGURATION["InitialExtensions"]:
@@ -23,12 +23,15 @@ if __name__ == '__main__':
         except Exception:
             LOG.error( f"Failed to load extension '{extension}'.", exc_info=True )
             continue
+        else:
+            LOG.info( f"Loaded `{extension}`" )
+            continue
         pass
     pass
 
 @bot.event
 async def on_ready( ):
-    LOG.info( f"\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\nOwners: {}" )
+    LOG.info( f"\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\nOwners: {util.get_owners()}" )
     await bot.change_presence( activity=discord.Game( name="TestPythonBot", type=1, url="https://rax.ee" ) )
     LOG.info( "Successfully logged in and booted." )
     pass

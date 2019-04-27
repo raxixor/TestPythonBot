@@ -20,7 +20,7 @@ class BasicsCog( commands.Cog, name="Basic Commands" ):
     @commands.command( name="about" )
     async def do_about(self, ctx):
         """An about embed."""
-
+        embed = discord.Embed(title="About ")
         pass
     pass
 
